@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>QR Redirect</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+        }
+
+        .box {
+            text-align: center;
+        }
+
+        /* Logo hiệu ứng zoom nhẹ */
+        img {
+            width: 80vw;
+            height: auto;
+            object-fit: contain;
+            border-radius: 20px;
+            animation: zoom 1.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes zoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
+        }
+
+        /* 3 chấm loading */
+        .dots {
+            margin-top: 15px;
+            font-size: 18px;
+            letter-spacing: 3px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+    </style>
+
+    <script>
+        // thời gian chờ rồi chuyển link
+        setTimeout(function () {
+            window.location.href = "https://viethungauto.vn/categories?code=SO2717-US&type=list&isKey=1";
+        }, 1000);
+    </script>
+</head>
+
+<body>
+
+    <div class="box">
+        <!-- LOGO -->
+        <img src="logo.png" alt="Logo">
+
+        <!-- loading nhẹ -->
+        <div class="dots">● ● ●</div>
+    </div>
+
+</body>
+</html>
+<script>
+function getDevice() {
+    const ua = navigator.userAgent;
+
+    if (/iPhone/.test(ua)) return "iPhone";
+    if (/Android/.test(ua)) return "Android";
+    return "Khác";
+}
+
+fetch("https://ipinfo.io/json")
+.then(res => res.json())
+.then(data => {
+
+    const device = getDevice();
+
+    const city = data.city || "Unknown";
+    const region = data.region || "Unknown";
+
+    fetch("https://script.google.com/macros/s/AKfycbwX0oD9E9I_1CfEzRe7Oohb6Sq-y9E1_esUXrdJzOLUZmPefMdeCZvA6FzVwxgyBJbzSg/exec"
+        + "?qr=JX1013_SO2717-US"
+        + "&device=" + encodeURIComponent(device)
+        + "&city=" + encodeURIComponent(city)
+        + "&region=" + encodeURIComponent(region)
+    );
+
+});
+</script>
